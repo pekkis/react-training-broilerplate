@@ -7,7 +7,7 @@
   ],
 
   rules: {
-    
+
     "arrow-parens": [0],
 
     "new-cap": [2, {
@@ -25,8 +25,11 @@
       ]
     }],
 
+    "import/prefer-default-export": [0],
     "react/jsx-no-bind": [1],
+    "react/jsx-filename-extension": [0],
     "import/no-extraneous-dependencies": "off",
+    "react/forbid-prop-types": [1],
 
     "flowtype/define-flow-type": 1,
     "flowtype/require-parameter-type": 1,
@@ -47,7 +50,7 @@
     ],
     "flowtype/type-id-match": [
         1,
-        "^([A-Z][a-z0-9]+)+Type$"
+        "^(([A-Z][a-z0-9]+)+Type)$|^Props$"
     ],
     "flowtype/use-flow-type": 1,
     "flowtype/valid-syntax": 1

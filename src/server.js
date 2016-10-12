@@ -1,7 +1,7 @@
 import uuid from 'node-uuid';
-import { createServer } from './broilerplate-util/express';
 import bodyParser from 'body-parser';
 import { List } from 'immutable';
+import { createServer } from './broilerplate-util/express';
 import config from '../config.server';
 import webpackConfig from '../webpack.config.babel';
 

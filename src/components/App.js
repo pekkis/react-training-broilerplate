@@ -8,7 +8,7 @@ type Props = {
   children: React.Element<any>,
 };
 
-const App = ({ children }: Props) => {
+const App = ({ children }: Props): React.Element<any> => {
   return (
     <div className={styles.root}>
       <h1>

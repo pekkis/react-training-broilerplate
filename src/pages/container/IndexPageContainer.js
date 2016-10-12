@@ -12,7 +12,7 @@ import {
 } from '../../ducks/todo';
 
 export default connect(
-  state => ({
+  (state: Object) => ({
     todos: state.todo.get('todos'),
     isChanged: state.todo.get('isChanged'),
   }),

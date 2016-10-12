@@ -2,7 +2,7 @@
 
 import { List } from 'immutable';
 
-export type TodoService = {
+export type TodoServiceType = {
   get: () => Promise<List<TodoType>>,
   save: (todos: List<TodoType>) => Promise<any>,
 };

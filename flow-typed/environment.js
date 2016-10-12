@@ -6,7 +6,7 @@ declare type TodoType = {
   text: string
 };
 
-declare type Action = {
+declare type ActionType = {
   type: string,
   payload?: any,
   error?: any,

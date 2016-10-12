@@ -3,21 +3,21 @@
 import { List, Map } from 'immutable';
 import todoService from '../services/todo-service.localhost';
 
-export function addTodo(todo: TodoType): Action {
+export function addTodo(todo: TodoType): ActionType {
   return {
     type: 'ADD_TODO',
     payload: todo,
   };
 }
 
-export function removeTodo(id: string): Action {
+export function removeTodo(id: string): ActionType {
   return {
     type: 'REMOVE_TODO',
     payload: id,
   };
 }
 
-export function moveTodo(id: string, direction: -1 | 1) {
+export function moveTodo(id: string, direction: -1 | 1): ActionType {
   return {
     type: 'MOVE_TODO',
     payload: {
@@ -27,14 +27,14 @@ export function moveTodo(id: string, direction: -1 | 1) {
   };
 }
 
-export function receiveTodos() {
+export function receiveTodos(): ActionType {
   return {
     type: 'RECEIVE_TODOS',
     payload: todoService.get(),
   };
 }
 
-export function saveTodos(todos: List<TodoType>) {
+export function saveTodos(todos: List<TodoType>): ActionType {
   return {
     type: 'SAVE_TODOS',
     payload: todoService.save(todos)
@@ -46,7 +46,7 @@ const defaultState: Map<string, any> = Map({
   isChanged: false,
 });
 
-export default function (state: Map<string, any> = defaultState, action: Action) {
+export default function (state: Map<string, any> = defaultState, action: ActionType) {
 
   switch (action.type) {
 

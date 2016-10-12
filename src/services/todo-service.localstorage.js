@@ -3,9 +3,9 @@
 /* global window */
 
 import { List } from 'immutable';
-import type { TodoService } from './todo-service';
+import type { TodoServiceType } from './todo-service';
 
-const service: TodoService = {
+const service: TodoServiceType = {
 
   get: (): Promise<List<TodoType>> => {
     const todos = JSON.parse(window.localStorage.getItem('todos')) || [];

@@ -8,20 +8,26 @@ import App from './components/container/AppContainer';
 import IndexPage from './pages/container/IndexPageContainer';
 import TodoPage from './pages/container/TodoPageContainer';
 
-type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => Object;
-type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<Action>;
+type DispatchType = (action: ActionType | ThunkAction | PromiseAction) => any;
+type GetStateType = () => Object;
+type ThunkAction = (dispatch: DispatchType, getState: GetStateType) => any;
+type PromiseAction = Promise<ActionType>;
 
-type Store = {
-  dispatch: Dispatch
+type StoreType = {
+  dispatch: DispatchType
 };
 
-type History = {
+type HistoryType = {
 
 };
 
-export default function Root({ store, history, isInitial }: { store: Store, history: History, isInitial: Boolean }) {
+type Props = {
+  store: StoreType,
+  history: HistoryType,
+  isInitial: Boolean
+};
+
+export default function Root({ store, history, isInitial }: Props) {
 
   function initApp(nextState, replaceState) {
 

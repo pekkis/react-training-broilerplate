@@ -11,7 +11,7 @@ type Props = {
   },
 };
 
-const TodoPage = (props: Props) => {
+const TodoPage = (props: Props): React.Element<any> => {
   const { todos, params } = props;
   const currentTodo = todos.find(todo => todo.id === params.uuid);
 

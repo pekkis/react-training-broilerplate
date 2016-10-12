@@ -2,10 +2,10 @@
 
 import axios from 'axios';
 import { List } from 'immutable';
-import type { TodoService } from './todo-service';
+import type { TodoServiceType } from './todo-service';
 import config from '../../config.client';
 
-const service: TodoService = {
+const service: TodoServiceType = {
   get: (): Promise<List<TodoType>> => (
     axios
       .get(`${config.api}/api/todo`)

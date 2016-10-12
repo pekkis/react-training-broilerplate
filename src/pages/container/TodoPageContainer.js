@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Wrapped from '../TodoPage';
 
 export default connect(
-  state => ({
+  (state: Object) => ({
     todos: state.todo.get('todos'),
   })
 )(Wrapped);

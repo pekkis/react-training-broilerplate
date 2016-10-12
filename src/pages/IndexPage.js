@@ -2,9 +2,9 @@
 
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { List } from 'immutable';
 import TodoForm from '../components/TodoForm';
 import TodoLists from '../components/TodoLists';
-import { List } from 'immutable';
 
 type Props = {
   saveTodos: () => void,
@@ -15,7 +15,7 @@ type Props = {
   moveTodo: () => void,
 };
 
-const IndexPage = (props: Props) => {
+const IndexPage = (props: Props): React.Element<any> => {
   const {
     saveTodos,
     addTodo,

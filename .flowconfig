@@ -1,6 +1,5 @@
 [libs]
 ./node_modules/fbjs/flow/lib
-./flow
 
 [options]
 suppress_type=$FlowIssue
@@ -8,3 +7,6 @@ module.name_mapper='.*\(.pcss\)' -> 'empty/object'
 module.name_mapper.extension='png' -> '<PROJECT_ROOT>/ImageModule.js.flow'
 module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/ImageModule.js.flow'
 module.name_mapper.extension='gif' -> '<PROJECT_ROOT>/ImageModule.js.flow'
+
+[version]
+0.33.0
