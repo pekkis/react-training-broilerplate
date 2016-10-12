@@ -8,16 +8,14 @@ type Props = {
   children: React.Element<any>,
 };
 
-const App = ({ children }: Props): React.Element<any> => {
-  return (
-    <div className={styles.root}>
-      <h1>
-        <img alt="Trollo" src={logo} /> Trollo
-      </h1>
-      {children}
-    </div>
-  );
-};
+const App = ({ children }: Props): React.Element<any> => (
+  <div className={styles.root}>
+    <h1>
+      <img alt="Trollo" src={logo} /> Trollo
+    </h1>
+    {children}
+  </div>
+);
 
 App.propTypes = {
   children: React.PropTypes.node.isRequired,

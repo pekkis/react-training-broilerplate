@@ -24,35 +24,17 @@ type HistoryType = {
 type Props = {
   store: StoreType,
   history: HistoryType,
-  isInitial: Boolean
+  isInitial: boolean
 };
 
-export default function Root({ store, history, isInitial }: Props) {
-
+export default function Root({ store, history, isInitial = false }: Props) {
   function initApp(nextState, replaceState) {
-
     // Hot reloading kludge, how to prevent dis?
     if (!isInitial) {
       return;
     }
-
     store.dispatch(receiveTodos());
   }
-
-  /*
-  function requiresLogin(nextState, replaceState) {
-      const user = store.getState().user.get('user');
-
-      if (user.anonymous) {
-          replaceState(
-              {
-                  'next': nextState.location.pathname,
-              },
-              '/login'
-          );
-      }
-  }
-  */
 
   return (
     <Provider store={store}>
@@ -69,4 +51,9 @@ export default function Root({ store, history, isInitial }: Props) {
 Root.propTypes = {
   store: React.PropTypes.object.isRequired,
   history: React.PropTypes.object.isRequired,
+  isInitial: React.PropTypes.bool.isRequired,
+};
+
+Root.defaultProps = {
+  isInitial: false,
 };

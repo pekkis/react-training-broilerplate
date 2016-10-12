@@ -1,34 +1,39 @@
+/* global document */
+/* eslint global-require: "off" */
+
 import React from 'react';
 import { render } from 'react-dom';
 import { browserHistory } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
+import promiseMiddleware from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
 import { createStore } from './broilerplate-util/redux';
 import * as reducers from './ducks';
 import Root from './Root';
-import { AppContainer } from 'react-hot-loader';
-import promiseMiddleware from 'redux-promise-middleware';
 
 const { store, history } = createStore(
   reducers,
   browserHistory,
   [
-      promiseMiddleware(),
+    thunk,
+    promiseMiddleware(),
   ]
 );
 const root = document.getElementById('app');
 
 render(
   <AppContainer>
-    <Root store={store} history={history} isInitial={true} />
+    <Root store={store} history={history} isInitial />
   </AppContainer>,
   root
 );
 
 if (module.hot) {
   module.hot.accept('./Root', () => {
-    const Root = require('./Root').default;
+    const RootElm = require('./Root').default;
     render(
       <AppContainer>
-        <Root store={store} history={history} isInitial={false} />
+        <RootElm store={store} history={history} />
       </AppContainer>,
       root
     );
