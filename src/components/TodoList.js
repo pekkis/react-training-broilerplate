@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import Inspector from 'react-inspector';
 import { List } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Todo from './Todo';

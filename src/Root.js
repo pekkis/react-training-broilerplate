@@ -2,16 +2,16 @@
 
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
-import { receiveTodos } from './ducks/todo';
 import { Provider } from 'react-redux';
+import { receiveTodos } from './ducks/todo';
 import App from './components/container/AppContainer';
 import IndexPage from './pages/container/IndexPageContainer';
 import TodoPage from './pages/container/TodoPageContainer';
 
-type DispatchType = (action: ActionType | ThunkAction | PromiseAction) => any;
+type DispatchType = (action: ActionType | ThunkActionType | PromiseActionType) => any;
 type GetStateType = () => Object;
-type ThunkAction = (dispatch: DispatchType, getState: GetStateType) => any;
-type PromiseAction = Promise<ActionType>;
+type ThunkActionType = (dispatch: DispatchType, getState: GetStateType) => any;
+type PromiseActionType = Promise<ActionType>;
 
 type StoreType = {
   dispatch: DispatchType
@@ -28,7 +28,7 @@ type Props = {
 };
 
 export default function Root({ store, history, isInitial = false }: Props) {
-  function initApp(nextState, replaceState) {
+  function initApp() {
     // Hot reloading kludge, how to prevent dis?
     if (!isInitial) {
       return;

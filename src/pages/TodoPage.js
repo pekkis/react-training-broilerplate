@@ -1,21 +1,14 @@
 // @flow
 
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { List } from 'immutable';
 
 type Props = {
-  todos: List<TodoType>,
-  params: {
-    uuid: string,
-  },
+  todo: ?TodoType,
 };
 
 const TodoPage = (props: Props): React.Element<any> => {
-  const { todos, params } = props;
-  const currentTodo = todos.find(todo => todo.id === params.uuid);
-
-  if (!currentTodo) {
+  const { todo } = props;
+  if (!todo) {
     return (
       <div>Not found</div>
     );
@@ -23,14 +16,13 @@ const TodoPage = (props: Props): React.Element<any> => {
 
   return (
     <div>
-      {currentTodo.text}
+      <h2>{todo.text}</h2>
     </div>
   );
 };
 
 TodoPage.propTypes = {
-  todos: ImmutablePropTypes.list.isRequired,
-  params: React.PropTypes.object.isRequired,
+  todo: React.PropTypes.object,
 };
 
 export default TodoPage;

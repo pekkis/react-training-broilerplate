@@ -37,8 +37,8 @@ export function receiveTodos(): ActionType {
 export function saveTodos(todos: List<TodoType>): ActionType {
   return {
     type: 'SAVE_TODOS',
-    payload: todoService.save(todos)
-  }
+    payload: todoService.save(todos),
+  };
 }
 
 const defaultState: Map<string, any> = Map({
@@ -47,7 +47,6 @@ const defaultState: Map<string, any> = Map({
 });
 
 export default function (state: Map<string, any> = defaultState, action: ActionType) {
-
   switch (action.type) {
 
     case 'RECEIVE_TODOS_FULFILLED':
@@ -69,18 +68,16 @@ export default function (state: Map<string, any> = defaultState, action: ActionT
     case 'SAVE_TODOS_FULFILLED':
       return state.set('isChanged', false);
 
-    case 'MOVE_TODO':
-
+    case 'MOVE_TODO': {
       if (!action.payload) {
-        throw "Invalid move action";
+        throw new Error('Invalid move action');
       }
 
       const id = action.payload.id;
       const direction = action.payload.direction;
       if (!id || !direction) {
-        throw "Invalid action";
+        throw new Error('Invalid action');
       }
-
 
       return state
       .updateIn(
@@ -93,7 +90,7 @@ export default function (state: Map<string, any> = defaultState, action: ActionT
         })
       )
       .set('isChanged', true);
-
+    }
     default:
       return state;
 

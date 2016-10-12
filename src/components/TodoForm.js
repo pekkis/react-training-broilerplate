@@ -6,8 +6,6 @@ import styles from './TodoForm.pcss';
 
 export default class TodoForm extends React.Component {
 
-  text: HTMLInputElement;
-
   onSubmit(e: Event) {
     e.preventDefault();
 
@@ -19,6 +17,8 @@ export default class TodoForm extends React.Component {
     this.text.value = '';
     this.props.onAdd(newTodo);
   }
+
+  text: HTMLInputElement;
 
   render() {
     return (

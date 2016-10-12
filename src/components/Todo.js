@@ -13,7 +13,6 @@ type Props = {
 };
 
 const Todo = ({ todo, onRemove, onMove }: Props) => {
-
   const classes = classnames(
     styles.root
   );

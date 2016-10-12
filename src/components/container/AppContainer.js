@@ -10,4 +10,4 @@ export default connect(
   dispatch => bindActionCreators({
     receiveTodos,
   }, dispatch)
-  )(Wrapped);
+)(Wrapped);

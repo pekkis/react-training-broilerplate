@@ -22,14 +22,14 @@ const TodoLists = (props: Props) => {
   const { onRemove, onMove, todos } = props;
   return (
     <div className={styles.root}>
-    {Range(0, 3).map(category => (
-      <TodoList
-        key={category}
-        category={categoryNames[category]}
-        onRemove={onRemove}
-        onMove={onMove}
-        todos={todos.filter(todo => todo.category === category).sortBy(todo => todo.text)}
-      />
+      {Range(0, 3).map(category => (
+        <TodoList
+          key={category}
+          category={categoryNames[category]}
+          onRemove={onRemove}
+          onMove={onMove}
+          todos={todos.filter(todo => todo.category === category).sortBy(todo => todo.text)}
+        />
     ))}
     </div>
     );
