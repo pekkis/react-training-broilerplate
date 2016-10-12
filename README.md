@@ -11,7 +11,6 @@ Use as you wish, but still read the license from LICENSE.
 Pull requests are most welcome!
 
 ## Requirements
-----------------
 
 - MacOS or Linux. Might work in Windows too, but I don't really care.
 - A new Node.js. I'm running 6.x nowadays.
@@ -24,7 +23,6 @@ Pull requests are most welcome!
 - If you want to run production mode, an [example configuration file(docs/nginx.conf) for Nginx is included.
 
 ## Stack
-------
 
 - Babel
 - Latest ES preset (2017) + React addons
