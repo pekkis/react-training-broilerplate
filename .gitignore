@@ -1,10 +1,5 @@
-/.idea
-/vendor
 node_modules/
-composer.phar
 config.client.js
 config.server.js
 dist/*
-.DS_Store
 coverage/
-webpack-assets.json
