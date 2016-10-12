@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 import Icon from 'react-fa';
 import styles from './Todo.pcss';
+import { Button } from './form';
 
 type Props = {
   todo: TodoType,
@@ -21,18 +22,18 @@ const Todo = ({ todo, onRemove, onMove }: Props) => {
     <li className={classes}>
       <Link to={`/todo/${todo.id}`}>{todo.text}</Link>
       <div>
-        <button onClick={onRemove.bind(null, todo.id)}>Remove</button>
+        <Button onClick={onRemove.bind(null, todo.id)}>Remove</Button>
 
         {todo.category !== 0 &&
-          <button onClick={onMove.bind(null, todo.id, -1)}>
+          <Button onClick={onMove.bind(null, todo.id, -1)}>
             <Icon name="minus-circle" />
-          </button>
+          </Button>
         }
 
         {todo.category !== 2 &&
-          <button onClick={onMove.bind(null, todo.id, 1)}>
+          <Button onClick={onMove.bind(null, todo.id, 1)}>
             <Icon name="plus-circle" />
-          </button>
+          </Button>
         }
       </div>
     </li>

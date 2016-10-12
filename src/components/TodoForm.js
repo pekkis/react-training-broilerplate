@@ -2,6 +2,7 @@
 
 import React from 'react';
 import uuid from 'node-uuid';
+import { Form, Button, InputGroup, Input, Label } from './form';
 import styles from './TodoForm.pcss';
 
 export default class TodoForm extends React.Component {
@@ -23,18 +24,24 @@ export default class TodoForm extends React.Component {
   render() {
     return (
       <div className={styles.root}>
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <label htmlFor="text">Got something new to do?</label>
-          <input
-            name="text"
-            ref={text => { this.text = text; }}
-            type="text"
-            placeholder="What must be done?"
-          />
-          <button type="submit">Add</button>
-        </form>
+        <Form onSubmit={this.onSubmit.bind(this)}>
+
+          <InputGroup>
+            <Label htmlFor="text">Got something new to do?</Label>
+            <Input
+              name="text"
+              ref={text => { this.text = text; }}
+              type="text"
+              placeholder="What must be done?"
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Button type="submit">Add</Button>
+          </InputGroup>
+        </Form>
       </div>
-      );
+    );
   }
 }
 

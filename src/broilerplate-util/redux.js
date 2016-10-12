@@ -9,7 +9,7 @@ export function createStore(
 ) {
   const createStoreWithMiddleware = compose(
     applyMiddleware(
-      middlewares
+      ...middlewares
     ),
     ...enhancers
   )(reduxCreateStore);
