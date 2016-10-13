@@ -4,7 +4,6 @@
   "description": "An example / training project broilerplate utilizing React et al.",
   "main": "src",
   "scripts": {
-    "initialize": "cp config.server.example.js config.server.js && cp config.client.example.js config.client.js && npm -g install yarn && yarn",
     "clean": "rimraf ./dist",
     "build:webpack": "NODE_ENV=production webpack --progress -p",
     "build": "npm run clean && npm run build:webpack",
