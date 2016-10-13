@@ -10,8 +10,6 @@ import IndexPage from './pages/container/IndexPageContainer';
 import UserPage from './pages/container/UserPageContainer';
 import ListPage from './pages/container/ListPageContainer';
 
-import TodoPage from './pages/container/TodoPageContainer';
-
 type DispatchType = (action: ActionType | ThunkActionType | PromiseActionType) => any;
 type GetStateType = () => Object;
 type ThunkActionType = (dispatch: DispatchType, getState: GetStateType) => any;
@@ -35,6 +33,7 @@ export default function Root({ store, history, isInitial = false }: Props) {
   function initApp(nextState, replaceState, callback) {
     // Hot reloading kludge, how to prevent dis?
     if (!isInitial) {
+      callback();
       return;
     }
 
@@ -56,7 +55,6 @@ export default function Root({ store, history, isInitial = false }: Props) {
             <IndexRoute component={UserPage} />
             <Route path=":list">
               <IndexRoute component={ListPage} />
-              <Route path=":todo" component={TodoPage} />
             </Route>
           </Route>
         </Route>

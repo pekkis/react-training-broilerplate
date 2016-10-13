@@ -13,14 +13,10 @@ type Props = {
 };
 
 const IndexPage = (props: Props): React.Element<any> => {
-
-  const {
-    users,
-  } = props;
+  const { users } = props;
 
   return (
     <section>
-
       <h2>Users</h2>
 
       <ul>

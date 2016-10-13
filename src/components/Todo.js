@@ -2,7 +2,6 @@
 
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import Icon from 'react-fa';
 import styles from './Todo.pcss';
 import { Button } from './form';
@@ -14,13 +13,17 @@ type Props = {
 };
 
 const Todo = ({ todo, onToggle, onRemove }: Props) => {
+
   const classes = classnames(
-    styles.root
+    styles.todo,
+    {
+      [styles.done]: todo.done,
+    }
   );
 
   return (
-    <li className={classes}>
-      <Link to={`/todo/${todo.id}`}>{todo.text}</Link>
+    <li className={styles.root}>
+      <span className={classes} onClick={onToggle.bind(null, todo.id)}>{todo.text}</span>
       <div>
         <Button onClick={onRemove.bind(null, todo.id)}>Remove</Button>
       </div>

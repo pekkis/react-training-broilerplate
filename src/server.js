@@ -1,9 +1,10 @@
 import uuid from 'node-uuid';
 import bodyParser from 'body-parser';
-import { List } from 'immutable';
-import { createServer } from './broilerplate-util/express';
+import { List, Repeat } from 'immutable';
+import { createServer } from './utils/express';
 import config from '../config.server';
 import webpackConfig from '../webpack.config.babel';
+
 
 createServer(config, webpackConfig, (app) => {
   app.use(bodyParser.json());
@@ -34,26 +35,37 @@ createServer(config, webpackConfig, (app) => {
       id: uuid.v4(),
       text: 'Get 100 litres of battery acid',
       list: secretList.id,
+      done: true,
     },
     {
       id: uuid.v4(),
       text: 'Get gardening tools',
       list: secretList.id,
+      done: true,
     },
     {
       id: uuid.v4(),
       text: 'Carve up the "meat"',
       list: secretList.id,
+      done: false,
     },
     {
       id: uuid.v4(),
       text: 'Liquidate the pieces',
       list: secretList.id,
+      done: false,
     },
     {
       id: uuid.v4(),
-      text: 'Dump the acid in the Danube',
+      text: 'Dump the acid in the river Vantaa',
       list: secretList.id,
+      done: false,
+    },
+    {
+      id: uuid.v4(),
+      text: 'Clean up the bathroom',
+      list: secretList.id,
+      done: false,
     }
   );
 

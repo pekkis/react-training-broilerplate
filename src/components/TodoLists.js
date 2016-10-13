@@ -1,44 +1,28 @@
 // @flow
 
 import React from 'react';
-import { Range, List } from 'immutable';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import TodoList from './TodoList';
 import styles from './TodoLists.pcss';
-
-const categoryNames = [
-  'TODO',
-  'DOING',
-  'DONE',
-];
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { Link } from 'react-router';
 
 type Props = {
-  onRemove: () => void,
-  onMove: () => void,
-  todos: List<TodoType>,
+  lists: List<ListType>,
 };
 
 const TodoLists = (props: Props) => {
-  const { onRemove, onMove, todos } = props;
+  const { lists } = props;
+
   return (
-    <div className={styles.root}>
-      {Range(0, 3).map(category => (
-        <TodoList
-          key={category}
-          category={categoryNames[category]}
-          onRemove={onRemove}
-          onMove={onMove}
-          todos={todos.filter(todo => todo.category === category).sortBy(todo => todo.text)}
-        />
-    ))}
-    </div>
-    );
+    <ul>
+      {lists.map(list => (
+        <li key={list.id}><Link to={`/${list.user}/${list.id}`}>{list.name}</Link></li>
+      ))}
+    </ul>
+  );
 };
 
 TodoLists.propTypes = {
-  todos: ImmutablePropTypes.list.isRequired,
-  onRemove: React.PropTypes.func.isRequired,
-  onMove: React.PropTypes.func.isRequired,
+  lists: ImmutablePropTypes.list.isRequired,
 };
 
 export default TodoLists;

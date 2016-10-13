@@ -7,7 +7,8 @@ import { browserHistory } from 'react-router';
 import { AppContainer } from 'react-hot-loader';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
-import { createStore } from './broilerplate-util/redux';
+import createLogger from 'redux-logger';
+import { createStore } from './utils/redux';
 import * as reducers from './ducks';
 import Root from './Root';
 
@@ -17,6 +18,7 @@ const { store, history } = createStore(
   [
     thunk,
     promiseMiddleware(),
+    createLogger(),
   ]
 );
 const root = document.getElementById('app');
@@ -30,10 +32,10 @@ render(
 
 if (module.hot) {
   module.hot.accept('./Root', () => {
-    const RootElm = require('./Root').default;
+    const Root = require('./Root').default;
     render(
       <AppContainer>
-        <RootElm store={store} history={history} />
+        <Root store={store} history={history} />
       </AppContainer>,
       root
     );

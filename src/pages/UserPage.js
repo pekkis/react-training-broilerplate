@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { List } from 'immutable';
+import TodoLists from '../components/TodoLists';
 
 type Props = {
   user: UserType,
@@ -15,14 +16,10 @@ const UserPage = (props: Props): React.Element<any> => {
 
   return (
     <section>
+
       <h2>{user.nick}</h2>
 
-      <ul>
-        {lists.map(list => (
-          <li key={list.id}><Link to={`/${user.id}/${list.id}`}>{list.name}</Link></li>
-        ))}
-      </ul>
-
+      <TodoLists lists={lists} />
 
     </section>
   );

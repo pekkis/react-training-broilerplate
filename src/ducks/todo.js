@@ -93,16 +93,11 @@ export default function (state: Map<string, any> = defaultState, action: ActionT
         throw new Error('Invalid toggle action');
       }
 
-      const id = payload.id;
-      if (!id) {
-        throw new Error('Invalid action');
-      }
-
       return state
       .updateIn(
         [
           'todos',
-          state.get('todos').findIndex(t => t.id === id),
+          state.get('todos').findIndex(t => t.id === payload),
         ], todo => ({
           ...todo,
           done: !todo.done,
