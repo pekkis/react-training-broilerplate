@@ -5,42 +5,37 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { List } from 'immutable';
 import TodoForm from '../components/TodoForm';
 import TodoLists from '../components/TodoLists';
+import { Link } from 'react-router';
 
 type Props = {
-  saveTodos: () => void,
-  addTodo: () => void,
-  isChanged: boolean,
-  todos: List<Object>,
-  removeTodo: () => void,
-  moveTodo: () => void,
+  addUser: Function,
+  users: List<UserType>,
 };
 
 const IndexPage = (props: Props): React.Element<any> => {
+
   const {
-    saveTodos,
-    addTodo,
-    isChanged,
-    todos,
-    removeTodo,
-    moveTodo,
+    users,
   } = props;
 
   return (
     <section>
-      <TodoLists todos={todos} onRemove={removeTodo} onMove={moveTodo} />
-      <TodoForm onAdd={addTodo} />
-      <button onClick={saveTodos.bind(null, todos)} disabled={!isChanged}>Save</button>
+
+      <h2>Users</h2>
+
+      <ul>
+        {users.map(user => (
+          <li key={user.id}><Link to={`/${user.id}`}>{user.nick}</Link></li>
+        ))}
+      </ul>
+
     </section>
   );
 };
 
 IndexPage.propTypes = {
-  saveTodos: React.PropTypes.func.isRequired,
-  addTodo: React.PropTypes.func.isRequired,
-  removeTodo: React.PropTypes.func.isRequired,
-  moveTodo: React.PropTypes.func.isRequired,
-  isChanged: React.PropTypes.bool.isRequired,
-  todos: ImmutablePropTypes.list.isRequired,
+  addUser: React.PropTypes.func.isRequired,
+  users: ImmutablePropTypes.list.isRequired,
 };
 
 export default IndexPage;

@@ -2,16 +2,12 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Wrapped from '../IndexPage';
-import {
-  addUser
-} from '../../ducks/user';
+import Wrapped from '../TodoForm';
+import { addTodo } from '../../ducks/todo';
 
 export default connect(
-  (state: Object) => ({
-    users: state.user.get('users'),
-  }),
+  null,
   dispatch => bindActionCreators({
-    addUser,
+    onAdd: addTodo,
   }, dispatch)
 )(Wrapped);

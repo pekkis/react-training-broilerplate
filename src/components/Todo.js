@@ -9,11 +9,11 @@ import { Button } from './form';
 
 type Props = {
   todo: TodoType,
-  onRemove: () => void,
-  onMove: () => void
+  onToggle: Function,
+  onRemove: Function,
 };
 
-const Todo = ({ todo, onRemove, onMove }: Props) => {
+const Todo = ({ todo, onToggle, onRemove }: Props) => {
   const classes = classnames(
     styles.root
   );
@@ -23,18 +23,6 @@ const Todo = ({ todo, onRemove, onMove }: Props) => {
       <Link to={`/todo/${todo.id}`}>{todo.text}</Link>
       <div>
         <Button onClick={onRemove.bind(null, todo.id)}>Remove</Button>
-
-        {todo.category !== 0 &&
-          <Button onClick={onMove.bind(null, todo.id, -1)}>
-            <Icon name="minus-circle" />
-          </Button>
-        }
-
-        {todo.category !== 2 &&
-          <Button onClick={onMove.bind(null, todo.id, 1)}>
-            <Icon name="plus-circle" />
-          </Button>
-        }
       </div>
     </li>
     );
@@ -43,7 +31,7 @@ const Todo = ({ todo, onRemove, onMove }: Props) => {
 Todo.propTypes = {
   todo: React.PropTypes.object.isRequired,
   onRemove: React.PropTypes.func.isRequired,
-  onMove: React.PropTypes.func.isRequired,
+  onToggle: React.PropTypes.func.isRequired,
 };
 
 export default Todo;

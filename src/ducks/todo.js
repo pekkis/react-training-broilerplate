@@ -1,7 +1,22 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import todoService from '../services/todo-service.localhost';
+import todoService from '../services/todo-service';
+
+export function addList(list: ListType): ActionType {
+  return {
+    type: 'ADD_LIST',
+    payload: todoService.addList(list),
+  };
+}
+
+export function getLists(): ActionType {
+  return {
+    type: 'ADD_LIST',
+    payload: todoService.getLists(),
+  };
+}
+
 
 export function addTodo(todo: TodoType): ActionType {
   return {
@@ -17,19 +32,16 @@ export function removeTodo(id: string): ActionType {
   };
 }
 
-export function moveTodo(id: string, direction: -1 | 1): ActionType {
+export function toggleTodo(id: string): ActionType {
   return {
-    type: 'MOVE_TODO',
-    payload: {
-      id,
-      direction,
-    },
+    type: 'TOGGLE_TODO',
+    payload: id,
   };
 }
 
-export function receiveTodos(): ActionType {
+export function getTodos(): ActionType {
   return {
-    type: 'RECEIVE_TODOS',
+    type: 'GET_TODOS',
     payload: todoService.get(),
   };
 }
@@ -42,40 +54,47 @@ export function saveTodos(todos: List<TodoType>): ActionType {
 }
 
 const defaultState: Map<string, any> = Map({
+  lists: List(),
   todos: List(),
   isChanged: false,
 });
 
 export default function (state: Map<string, any> = defaultState, action: ActionType) {
-  switch (action.type) {
+  const { type, payload } = action;
 
-    case 'RECEIVE_TODOS_FULFILLED':
-      return state.set('todos', action.payload);
+  switch (action.type) {
+    case 'GET_LISTS_FULFILLED':
+      return state.set('lists', payload);
+
+    case 'ADD_LIST_FULFILLED':
+      return state.update('lists', lists => lists.concat(payload));
+
+    case 'GET_TODOS_FULFILLED':
+      return state.set('todos', payload);
 
     case 'ADD_TODO':
       return state
-        .update('todos', todos => todos.push(action.payload))
+        .update('todos', todos => todos.push(payload))
         .set('isChanged', true);
 
     case 'REMOVE_TODO':
       return state
         .deleteIn([
           'todos',
-          state.get('todos').findIndex(t => t.id === action.payload),
+          state.get('todos').findIndex(t => t.id === payload),
         ])
         .set('isChanged', true);
 
     case 'SAVE_TODOS_FULFILLED':
       return state.set('isChanged', false);
 
-    case 'MOVE_TODO': {
-      if (!action.payload) {
-        throw new Error('Invalid move action');
+    case 'TOGGLE_TODO': {
+      if (!payload) {
+        throw new Error('Invalid toggle action');
       }
 
-      const id = action.payload.id;
-      const direction = action.payload.direction;
-      if (!id || !direction) {
+      const id = payload.id;
+      if (!id) {
         throw new Error('Invalid action');
       }
 
@@ -86,7 +105,7 @@ export default function (state: Map<string, any> = defaultState, action: ActionT
           state.get('todos').findIndex(t => t.id === id),
         ], todo => ({
           ...todo,
-          category: todo.category + direction,
+          done: !todo.done,
         })
       )
       .set('isChanged', true);

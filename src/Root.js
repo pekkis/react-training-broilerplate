@@ -3,9 +3,13 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-import { receiveTodos } from './ducks/todo';
+import { getTodos, getLists } from './ducks/todo';
+import { getUsers } from './ducks/user';
 import App from './components/container/AppContainer';
 import IndexPage from './pages/container/IndexPageContainer';
+import UserPage from './pages/container/UserPageContainer';
+import ListPage from './pages/container/ListPageContainer';
+
 import TodoPage from './pages/container/TodoPageContainer';
 
 type DispatchType = (action: ActionType | ThunkActionType | PromiseActionType) => any;
@@ -28,12 +32,19 @@ type Props = {
 };
 
 export default function Root({ store, history, isInitial = false }: Props) {
-  function initApp() {
+  function initApp(nextState, replaceState, callback) {
     // Hot reloading kludge, how to prevent dis?
     if (!isInitial) {
       return;
     }
-    store.dispatch(receiveTodos());
+
+    Promise.all([
+      store.dispatch(getUsers()),
+      store.dispatch(getTodos()),
+      store.dispatch(getLists()),
+    ]).then(p => {
+      callback();
+    })
   }
 
   return (
@@ -41,7 +52,13 @@ export default function Root({ store, history, isInitial = false }: Props) {
       <Router history={history}>
         <Route path="/" component={App} onEnter={initApp}>
           <IndexRoute component={IndexPage} />
-          <Route path="todo/:uuid" component={TodoPage} />
+          <Route path="/:user">
+            <IndexRoute component={UserPage} />
+            <Route path=":list">
+              <IndexRoute component={ListPage} />
+              <Route path=":todo" component={TodoPage} />
+            </Route>
+          </Route>
         </Route>
       </Router>
     </Provider>

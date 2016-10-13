@@ -75,7 +75,7 @@ createServer(config, webpackConfig, (app) => {
 
   app.post('/api/user', (req, res) => {
     users = List(req.body);
-    res.send(['ok']);
+    res.send(req.body);
   });
 
   app.get('/api/list', (req, res) => {

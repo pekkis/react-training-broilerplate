@@ -8,33 +8,35 @@ import styles from './TodoForm.pcss';
 export default class TodoForm extends React.Component {
 
   onSubmit(e: Event) {
+    const { list } = this.props;
+
     e.preventDefault();
 
     const newTodo: TodoType = {
       id: uuid.v4(),
-      text: this.text.value,
-      category: 0,
+      text: this.input.value,
+      done: false,
+      list: list.id,
     };
-    this.text.value = '';
+
+    this.input.value = '';
     this.props.onAdd(newTodo);
   }
 
-  text: HTMLInputElement;
+  input: HTMLInputElement;
 
   render() {
     return (
       <div className={styles.root}>
         <Form onSubmit={this.onSubmit.bind(this)}>
 
-          <InputGroup>
             <Label htmlFor="text">Got something new to do?</Label>
             <Input
               name="text"
-              ref={text => { this.text = text; }}
+              reference={(input) => { this.input = input }}
               type="text"
               placeholder="What must be done?"
             />
-          </InputGroup>
 
           <InputGroup>
             <Button type="submit">Add</Button>
@@ -47,4 +49,5 @@ export default class TodoForm extends React.Component {
 
 TodoForm.propTypes = {
   onAdd: React.PropTypes.func.isRequired,
+  list: React.PropTypes.object.isRequired,
 };
