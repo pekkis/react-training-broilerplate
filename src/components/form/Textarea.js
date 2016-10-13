@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import styles from './Textarea.pcss';
 
 const Textarea = props => {
-  const { validationState, block, ...rest } = props;
+  const { styles, validationState, block, ...rest } = props;
 
   const classes = cx(
     styles.root,
@@ -19,6 +18,12 @@ const Textarea = props => {
 Textarea.propTypes = {
   validationState: React.PropTypes.oneOf(['success', 'error', 'default']),
   block: React.PropTypes.bool,
+  styles: React.PropTypes.object.isRequired,
 };
+
+Textarea.defaultProps = {
+  block: false,
+  styles: {},
+}
 
 export default Textarea;

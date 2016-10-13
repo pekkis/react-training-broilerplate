@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Radio.pcss';
 
 const Radio = props => {
-  const { label, validationState, ...rest } = props;
+  const { styles, label, validationState, ...rest } = props;
   return (
     <div className={styles.root}>
       <input validationState={validationState} type="radio" {...rest} /> {label}
@@ -13,10 +12,12 @@ const Radio = props => {
 Radio.propTypes = {
   label: React.PropTypes.element.isRequired,
   validationState: React.PropTypes.oneOf(['success', 'error', 'default']),
+  styles: React.PropTypes.object.isRequired,
 };
 
 Radio.defaultProps = {
   validationState: 'default',
+  styles: {},
 };
 
 export default Radio;

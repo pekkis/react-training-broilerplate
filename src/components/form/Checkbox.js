@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Checkbox.pcss';
 
 const Checkbox = props => {
-  const { label, validationState, ...rest } = props;
+  const { styles, label, validationState, ...rest } = props;
   return (
     <div className={styles.root}>
       <input validationState={validationState} type="checkbox" {...rest} /> {label}
@@ -11,12 +10,14 @@ const Checkbox = props => {
 };
 
 Checkbox.propTypes = {
-  label: React.PropTypes.element.isRequired,
+  label: React.PropTypes.node.isRequired,
   validationState: React.PropTypes.oneOf(['success', 'error', 'default']),
+  styles: React.PropTypes.object.isRequired,
 };
 
 Checkbox.defaultProps = {
   validationState: 'default',
+  styles: {},
 };
 
 export default Checkbox;

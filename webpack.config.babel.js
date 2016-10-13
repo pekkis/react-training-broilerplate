@@ -94,7 +94,7 @@ const common = {
     root: [
       PATHS.src,
     ],
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   resolveLoader: {
     root: PATHS.modules

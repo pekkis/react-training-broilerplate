@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './InputGroup.pcss';
 
 function decideType({ type }) {
   if (typeof type === 'string') {
@@ -20,7 +19,7 @@ const acceptedTypes = [
 ];
 
 const InputGroup = props => {
-  const { children, validationState, ...rest } = props;
+  const { styles, children, validationState, ...rest } = props;
 
   const clones = React.Children.map(children, child => (
     acceptedTypes.includes(decideType(child)) ?
@@ -35,12 +34,14 @@ const InputGroup = props => {
 };
 
 InputGroup.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: React.PropTypes.node,
   validationState: React.PropTypes.oneOf(['success', 'error', 'default']),
+  styles: React.PropTypes.object.isRequired,
 };
 
 InputGroup.defaultProps = {
   validationState: 'default',
+  styles: {},
 };
 
 export default InputGroup;

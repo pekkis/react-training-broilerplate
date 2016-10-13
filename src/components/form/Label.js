@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import styles from './Label.pcss';
 
 const Label = props => {
-  const { children, validationState, htmlFor, ...rest } = props;
+  const { styles, children, validationState, htmlFor, ...rest } = props;
 
   const classes = cx(
     styles.root,
@@ -18,12 +17,14 @@ const Label = props => {
 
 Label.propTypes = {
   htmlFor: React.PropTypes.string.isRequired,
-  children: React.PropTypes.element.isRequired,
+  children: React.PropTypes.node.isRequired,
   validationState: React.PropTypes.oneOf(['success', 'error', 'default']),
+  styles: React.PropTypes.object.isRequired,
 };
 
 Label.defaultProps = {
   validationState: 'default',
+  styles: {},
 };
 
 export default Label;

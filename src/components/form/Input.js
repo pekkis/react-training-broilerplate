@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import styles from './Input.pcss';
 
 const Input = props => {
-  const { block, validationState, ...rest } = props;
+  const { styles, block, validationState, ...rest } = props;
   const classes = cx(
     styles.input,
     styles[validationState],
@@ -25,6 +24,7 @@ Input.propTypes = {
 Input.defaultProps = {
   block: false,
   validationState: 'default',
+  styles: {},
 };
 
 export default Input;

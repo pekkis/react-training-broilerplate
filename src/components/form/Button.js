@@ -2,7 +2,6 @@
 
 import React from 'react';
 import cx from 'classnames';
-import styles from './Button.pcss';
 
 type Props = {
   children: React.Element<any>,
@@ -10,10 +9,11 @@ type Props = {
   block: boolean,
   inline: boolean,
   outline: boolean,
+  styles: Object,
 };
 
 const Button = (props: Props): React.Element<any> => {
-  const { children, block, inline, role, outline, ...rest } = props;
+  const { styles, children, block, inline, role, outline, ...rest } = props;
 
   const classes = cx(
     styles.button,
@@ -38,6 +38,16 @@ Button.defaultProps = {
   outline: false,
   role: 'primary',
   type: 'button',
+  styles: {}
 };
+
+Button.propTypes = {
+  block: React.PropTypes.bool.isRequired,
+  inline: React.PropTypes.bool.isRequired,
+  outline: React.PropTypes.bool.isRequired,
+  role: React.PropTypes.oneOf(['primary', 'success', 'danger']),
+  styles: React.PropTypes.object.isRequired,
+  children: React.PropTypes.node,
+}
 
 export default Button;

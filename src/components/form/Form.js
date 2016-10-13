@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Form.pcss';
 
 const Form = props => {
-  const { children, ...rest } = props;
+  const { styles, children, ...rest } = props;
   return (
     <form className={styles.root} {...rest}>
       {children}
@@ -11,7 +10,12 @@ const Form = props => {
 };
 
 Form.propTypes = {
-  children: React.PropTypes.element,
+  children: React.PropTypes.node,
+  styles: React.PropTypes.object.isRequired,
 };
+
+Form.defaultProps = {
+  styles: {},
+}
 
 export default Form;

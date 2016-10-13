@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Select.pcss';
 
 const Select = props => {
-  const { children, ...rest } = props;
+  const { styles, children, ...rest } = props;
   return (
     <select className={styles.root} {...rest}>
       {children}
@@ -11,7 +10,12 @@ const Select = props => {
 };
 
 Select.propTypes = {
-  children: React.PropTypes.element,
+  children: React.PropTypes.node,
+  styles: React.PropTypes.object.isRequired,
 };
+
+Select.defaultProps = {
+  styles: {},
+}
 
 export default Select;
