@@ -21,7 +21,7 @@ Pull requests are most welcome!
 
 - I really recommend you utilize the [yarn](https://yarnpkg.com) package manager.
 - A good editor / IDE that supports Flow real-time. I use [Nuclide](https://nuclide.io/) myself because I think it's great!
-- If you want to run production mode, an [example configuration file(docs/nginx.conf) for Nginx is included.
+- If you want to run production mode, an [example configuration file](docs/nginx.conf) for Nginx is included.
 
 ## Stack
 - React
