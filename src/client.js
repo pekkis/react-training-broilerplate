@@ -3,14 +3,16 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { browserHistory } from 'react-router';
 import { AppContainer } from 'react-hot-loader';
+import Root from './Root';
+
+/*
+import { browserHistory } from 'react-router';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore } from './utils/redux';
 import * as reducers from './ducks';
-import Root from './Root';
 
 const { store, history } = createStore(
   reducers,
@@ -21,21 +23,24 @@ const { store, history } = createStore(
     createLogger(),
   ]
 );
+*/
+
 const root = document.getElementById('app');
 
 render(
   <AppContainer>
-    <Root store={store} history={history} isInitial />
+    <Root />
   </AppContainer>,
   root
 );
 
+// No I don't understand what happens under the hood but it works :)
 if (module.hot) {
   module.hot.accept('./Root', () => {
     const Root = require('./Root').default;
     render(
       <AppContainer>
-        <Root store={store} history={history} />
+        <Root />
       </AppContainer>,
       root
     );
