@@ -14,4 +14,13 @@ const Example = props => {
   );
 };
 
+Example.propTypes = {
+  example: React.PropTypes.string.isRequired,
+  setExample: React.PropTypes.func.isRequired,
+};
+
+Example.defaultProps = {
+  example: 'default example',
+};
+
 export default Example;
