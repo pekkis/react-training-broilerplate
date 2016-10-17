@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './App.pcss';
-import logo from '../images/trollo.png';
+import Header from './container/HeaderContainer';
 
 type Props = {
   children: React.Element<any>,
@@ -10,10 +10,11 @@ type Props = {
 
 const App = ({ children }: Props): React.Element<any> => (
   <div className={styles.root}>
-    <h1>
-      <img alt="Trollo" src={logo} /> Trollo
-    </h1>
-    {children}
+    <Header />
+
+    <div className={styles.content}>
+      {children}
+    </div>
   </div>
 );
 

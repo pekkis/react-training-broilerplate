@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import { getTodos, getLists } from './ducks/todo';
 import { getUsers } from './ducks/user';
-import App from './components/container/AppContainer';
+import App from './components/App';
 import IndexPage from './pages/container/IndexPageContainer';
 import UserPage from './pages/container/UserPageContainer';
 import ListPage from './pages/container/ListPageContainer';

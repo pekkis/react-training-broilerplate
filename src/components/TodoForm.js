@@ -5,27 +5,42 @@ import uuid from 'node-uuid';
 import { Form, Button, InputGroup, Input, Label } from './form';
 import styles from './TodoForm.pcss';
 
+type Props = {
+  onAdd: Function,
+  list: ListType,
+};
+
 export default class TodoForm extends React.Component {
+
+  state: {
+    newTodo: string,
+  };
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      newTodo: '',
+    };
+  }
 
   onSubmit(e: Event) {
     const { list } = this.props;
+    const { newTodo } = this.state;
 
     e.preventDefault();
 
-    const newTodo: TodoType = {
+    const todo: TodoType = {
       id: uuid.v4(),
-      text: this.input.value,
+      text: newTodo,
       done: false,
       list: list.id,
     };
 
-    this.input.value = '';
-    this.props.onAdd(newTodo);
+    this.props.onAdd(todo);
   }
 
-  input: HTMLInputElement;
-
   render() {
+    const { newTodo } = this.state;
     return (
       <div className={styles.root}>
         <Form onSubmit={this.onSubmit.bind(this)}>
@@ -33,7 +48,8 @@ export default class TodoForm extends React.Component {
             <Label htmlFor="text">Got something new to do?</Label>
             <Input
               name="text"
-              reference={(input) => { this.input = input }}
+              value={newTodo}
+              onChange={e => this.setState({ newTodo: e.target.value })}
               type="text"
               placeholder="What must be done?"
             />
