@@ -10,12 +10,10 @@ type Props = {
   todos: List<TodoType>,
   onRemove: Function,
   onToggle: Function,
-  onAdd: Function,
 };
 
-const TodoList = ({ todos, onRemove, onToggle, onAdd }: Props): React.Element<any> => (
+const TodoList = ({ todos, onRemove, onToggle }: Props): React.Element<any> => (
   <div className={styles.root}>
-    <div className={styles.inner}>
       <ul>
         {todos.map((todo: TodoType): React.Element<any> => (
           <Todo
@@ -26,7 +24,6 @@ const TodoList = ({ todos, onRemove, onToggle, onAdd }: Props): React.Element<an
           />
         ))}
       </ul>
-    </div>
   </div>
 );
 
