@@ -10,7 +10,7 @@
     "lint": "eslint src --ext js --ext jsx",
     "babel-node": "babel-node",
     "start": "NODE_ENV=development ./node_modules/.bin/nodemon --exec npm run babel-node -w src/server.js -- src/server.js",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register --require ignore-styles",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register -r ignore-styles -r jsdom-global/register",
     "flow": "flow",
     "serve": "NODE_ENV=production ./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node src/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook"
@@ -89,6 +89,7 @@
     "react-addons-test-utils": "^15.3.1",
     "redux-logger": "^2.7.0",
     "rimraf": "^2.5.4",
+    "sinon": "^1.17.6",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
