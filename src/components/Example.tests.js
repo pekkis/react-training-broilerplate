@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import { List } from 'immutable';
-import Example from '../src/components/Example';
+import Example from './Example';
 import sinon from 'sinon';
 
 describe('<Example />', () => {
