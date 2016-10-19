@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+// import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 
 /*
@@ -26,7 +26,12 @@ const { store, history } = createStore(
 */
 
 const root = document.getElementById('app');
+render(
+  <Root />,
+  root
+);
 
+/*
 render(
   <AppContainer>
     <Root />
@@ -46,3 +51,4 @@ if (module.hot) {
     );
   });
 }
+*/
