@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './components/App';
 import IndexPage from './pages/container/IndexPageContainer';

@@ -33,8 +33,8 @@ const ServerRoot = props => {
   return (
     <HTMLDocument
       title="React Training Broilerplate"
-      scripts={[manifest.publicPath + manifest.assets['client.js']]}
-      stylesheets={[manifest.publicPath + manifest.assets['client.css']]}
+      scripts={['/' + manifest['main.js']]}
+      stylesheets={['/' + manifest['main.css']]}
       metatags={[
         { name: 'charset', content: 'utf-8' }
       ]}

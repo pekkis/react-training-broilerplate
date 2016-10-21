@@ -6,7 +6,7 @@ export function getStyleLoader(env, target, base) {
     ...base,
   };
 
-  if (env === 'production' && target === 'browser') {
+  if (target === 'browser') {
     ret.loader = ExtractTextPlugin.extract(
       'style-loader',
       base.loaders

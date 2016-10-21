@@ -2,6 +2,7 @@ import http from 'http';
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
+import proxy from 'express-http-proxy';
 
 /* eslint no-console:0, global-require: 0 */
 
@@ -21,7 +22,7 @@ export function createServer(config, webpackConfig, callback) {
 
   if (ENV === 'development') {
     devMiddleware = require('webpack-dev-middleware')(compiler, {
-      noInfo: true,
+      noInfo: false,
       publicPath: webpackConfig.output.publicPath,
     });
 
@@ -31,6 +32,8 @@ export function createServer(config, webpackConfig, callback) {
 
   return new Promise((resolve) => {
     callback(app, httpServer).then(() => {
+
+      app.get('*', proxy('localhost:' + (config.port + 1)));
 
       httpServer.listen(port, () => {
         console.log(`Listening at http://localhost:${port}`);
