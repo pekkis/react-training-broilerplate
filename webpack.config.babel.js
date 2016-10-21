@@ -9,6 +9,7 @@ import clientConf from './config.client';
 import { getStyleLoader } from './src/utils/webpack';
 import { List } from 'immutable';
 import ManifestRevisionPlugin from 'manifest-revision-webpack-plugin';
+import WebpackAssetsManifest from 'webpack-assets-manifest';
 
 const ENV = process.env.NODE_ENV;
 const rootAssetPath = './src/assets';
@@ -106,14 +107,17 @@ const common = {
 
 const plugins = [
   new webpack.optimize.OccurenceOrderPlugin(),
+  new ExtractTextPlugin("styles.[contenthash].css"),
   new webpack.DefinePlugin({
     __DEVELOPMENT__: process.env.NODE_ENV === 'development',
     __DEVTOOLS__: false,
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }),
-  new ManifestRevisionPlugin(path.join('dist', 'manifest.json'), {
-    rootAssetPath: rootAssetPath,
-    ignorePaths: []
+  new WebpackAssetsManifest({
+    output: 'manifest.json',
+    writeToDisk: true,
+    sortManifest: true,
+    merge: false
   }),
 ];
 
@@ -150,7 +154,6 @@ const envs = {
       filename: '[name].[chunkhash].js'
     },
     plugins: plugins.concat([
-      new ExtractTextPlugin("styles.[contenthash].css"),
       new webpack.optimize.UglifyJsPlugin({
         'mangle': false,
         'compress': {
