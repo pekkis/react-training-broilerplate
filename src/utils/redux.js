@@ -5,7 +5,8 @@ export function createStore(
   reducers,
   rawHistory,
   middlewares = [],
-  enhancers = []
+  enhancers = [],
+  initialState = undefined,
 ) {
   const createStoreWithMiddleware = compose(
     applyMiddleware(
@@ -18,7 +19,7 @@ export function createStore(
     ...reducers,
     routing: routerReducer,
   });
-  const store = createStoreWithMiddleware(reducer);
+  const store = createStoreWithMiddleware(reducer, initialState);
   const history = syncHistoryWithStore(rawHistory, store);
 
   return { history, store };

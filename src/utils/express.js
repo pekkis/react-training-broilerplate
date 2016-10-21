@@ -31,14 +31,6 @@ export function createServer(config, webpackConfig, callback) {
 
   return new Promise((resolve) => {
     callback(app, httpServer).then(() => {
-      if (ENV === 'development') {
-        app.get('*', (req, res) => {
-          const index = devMiddleware.fileSystem.readFileSync(
-            path.join(webpackConfig.output.path, 'index.html')
-          );
-          res.end(index);
-        });
-      }
 
       httpServer.listen(port, () => {
         console.log(`Listening at http://localhost:${port}`);

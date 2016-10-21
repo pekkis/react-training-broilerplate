@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import merge from 'merge';
 import autoprefixer from 'autoprefixer';
@@ -8,10 +7,19 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import clientConf from './config.client';
 import { getStyleLoader } from './src/utils/webpack';
 import { List } from 'immutable';
-import ManifestRevisionPlugin from 'manifest-revision-webpack-plugin';
+
+import fs from 'fs';
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 const ENV = process.env.NODE_ENV;
-const rootAssetPath = './src/assets';
 
 const PATHS = {
   src: path.resolve(__dirname, './src'),
@@ -29,36 +37,36 @@ export function getPostCss() {
 export function getCommonLoaders(ENV) {
   return List([
     getStyleLoader(
-      ENV,
-      'browser',
+      'development',
+      'node',
       {
         test: /\.p?css$/,
         include: [
           PATHS.src,
         ],
         loaders: [
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader'
         ]
       },
     ),
     getStyleLoader(
-      ENV,
-      'browser',
+      'development',
+      'node',
       {
         test: /\.css$/,
         include: [
           PATHS.modules,
         ],
         loaders: [
-          'css-loader'
+          'null-loader'
         ]
       },
     ),
     {
       test: /\.(png|jpg|gif|ico|svg)$/,
       loaders: [
-        'file?hash=sha512&digest=hex&name=assets/[hash:base58:8].[ext]',
+        'file?emitFile=false&hash=sha512&digest=hex&name=assets/[hash:base58:8].[ext]',
         'img?minimize&optimizationLevel=5&progressive=true'
       ],
       include: [
@@ -67,11 +75,15 @@ export function getCommonLoaders(ENV) {
     },
     {
       test: /font.*\.(woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=assets/fonts/[name].[ext]',
+      loader: 'url-loader?emitFile=false&limit=10000&mimetype=application/font-woff&name=assets/fonts/[name].[ext]',
       include: [
         PATHS.src,
         PATHS.modules
       ]
+    },
+    {
+      test: /\.(json)$/,
+      loader: 'json-loader',
     }
   ]);
 }
@@ -79,6 +91,8 @@ export function getCommonLoaders(ENV) {
 const common = {
 
   context: __dirname,
+  externals: nodeModules,
+  target: "node",
 
   module: {
     loaders: getCommonLoaders(ENV).concat(
@@ -110,11 +124,7 @@ const plugins = [
     __DEVELOPMENT__: process.env.NODE_ENV === 'development',
     __DEVTOOLS__: false,
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-  }),
-  new ManifestRevisionPlugin(path.join('dist', 'manifest.json'), {
-    rootAssetPath: rootAssetPath,
-    ignorePaths: []
-  }),
+  })
 ];
 
 const envs = {
@@ -124,33 +134,29 @@ const envs = {
 
   development: {
     devtool: 'cheap-module-source-map',
-    entry: [
-      'react-hot-loader/patch',
-      'webpack-hot-middleware/client',
-      './src/client.js'
-    ],
+    entry: {
+      server: './src/server.js',
+    },
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: '/',
-      filename: 'client.[hash].js'
+      filename: 'server.js'
     },
     plugins: plugins.concat([
-      new webpack.HotModuleReplacementPlugin(),
     ])
   },
   production: {
     devtool: 'source-map',
     entry: {
-      client: './src/client.js',
+      server: './src/server.js',
     },
 
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: '/',
-      filename: '[name].[chunkhash].js'
+      filename: '[name].js'
     },
     plugins: plugins.concat([
-      new ExtractTextPlugin("styles.[contenthash].css"),
       new webpack.optimize.UglifyJsPlugin({
         'mangle': false,
         'compress': {
@@ -162,7 +168,7 @@ const envs = {
           global_defs: {}
         }
       }),
-      new webpack.NoErrorsPlugin(),
+      new webpack.NoErrorsPlugin()
     ])
   }
 }
