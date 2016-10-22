@@ -5,11 +5,13 @@ import merge from 'merge';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import clientConf from './config.client';
+import serverConf from './config.server';
 import { getStyleLoader } from './src/utils/webpack';
 import { List } from 'immutable';
 import ManifestRevisionPlugin from 'manifest-revision-webpack-plugin';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
+
+import HtmlCreatorPlugin from '@dr-kobros/html-document-webpack-plugin';
 
 const ENV = process.env.NODE_ENV;
 const rootAssetPath = './src/assets';
@@ -113,6 +115,23 @@ const plugins = [
     __DEVTOOLS__: false,
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }),
+  /*
+  new HtmlWebpackPlugin({
+    title: 'Trollo',
+    template: 'web/index.html',
+    favicon: 'web/favicon.ico',
+    inject: 'body'
+  }),
+  */
+
+  new HtmlCreatorPlugin({
+    title: 'React Training Broilerplate',
+    css: [
+      'https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic',
+    ],
+    favicon: 'web/favicon.ico',
+  }),
+
   new WebpackAssetsManifest({
     output: 'manifest.json',
     writeToDisk: true,

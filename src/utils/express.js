@@ -22,8 +22,9 @@ export function createServer(config, webpackConfig, callback) {
 
   if (ENV === 'development') {
     devMiddleware = require('webpack-dev-middleware')(compiler, {
-      noInfo: false,
+      noInfo: true,
       publicPath: webpackConfig.output.publicPath,
+      serverSideRender: true,
     });
 
     app.use(devMiddleware);
@@ -31,9 +32,7 @@ export function createServer(config, webpackConfig, callback) {
   }
 
   return new Promise((resolve) => {
-    callback(app, httpServer).then(() => {
-
-      app.get('*', proxy('localhost:' + (config.port + 1)));
+    callback(app, httpServer, devMiddleware).then(() => {
 
       httpServer.listen(port, () => {
         console.log(`Listening at http://localhost:${port}`);

@@ -17,15 +17,20 @@ import * as reducers from './ducks';
 import { getUniversalState } from 'react-html-document';
 import { Map, List } from 'immutable';
 
+function getInitialState() {
+  try {
+    const state = getUniversalState();
+    return {
+      person: Map({
+        persons: List(state.person.persons),
+      }),
+    };
+  } catch(e) {
+    return undefined;
+  }
+}
 
-// Todo: what if empty?
-const state = getUniversalState();
-
-const initialState = {
-  person: Map({
-    persons: List(state.person.persons),
-  }),
-};
+const initialState = getInitialState();
 
 const { store, history } = createStore(
   reducers,

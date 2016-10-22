@@ -6,16 +6,24 @@ export function getStyleLoader(env, target, base) {
     ...base,
   };
 
-  if (target === 'browser') {
-    ret.loader = ExtractTextPlugin.extract(
-      'style-loader',
-      base.loaders
-    );
-    delete ret.loaders;
-  } else {
-    if (target === 'browser') {
-      ret.loaders.unshift('style-loader');
-    }
+  switch (env) {
+
+    case 'development':
+      if (target === 'browser') {
+        ret.loaders.unshift('style-loader');
+      }
+      break;
+
+    case 'production':
+
+      if (target === 'browser') {
+        ret.loader = ExtractTextPlugin.extract(
+          'style-loader',
+          base.loaders
+        );
+        delete ret.loaders;
+      }
+      break;
   }
   return ret;
 }
