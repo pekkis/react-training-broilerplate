@@ -10,7 +10,11 @@ export function getStyleLoader(env, target, base) {
 
     case 'development':
       if (target === 'browser') {
-        ret.loaders.unshift('style-loader');
+        ret.loader = ExtractTextPlugin.extract(
+          'style-loader',
+          base.loaders
+        );
+        delete ret.loaders;
       }
       break;
 

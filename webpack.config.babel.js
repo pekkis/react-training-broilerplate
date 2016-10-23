@@ -124,6 +124,7 @@ const plugins = [
   }),
   */
 
+  /*
   new HtmlCreatorPlugin({
     title: 'React Training Broilerplate',
     css: [
@@ -131,12 +132,13 @@ const plugins = [
     ],
     favicon: 'web/favicon.ico',
   }),
+  */
 
   new WebpackAssetsManifest({
     output: 'manifest.json',
     writeToDisk: true,
     sortManifest: true,
-    merge: false
+    merge: true,
   }),
 ];
 
