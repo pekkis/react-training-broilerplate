@@ -31,6 +31,7 @@
   "author": "Pekkis",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@dr-kobros/html-document-webpack-plugin": "^0.4.0",
     "axios": "^0.15.0",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
