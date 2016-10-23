@@ -4,6 +4,12 @@ import React from 'react';
 import styles from './App.pcss';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { List } from 'immutable';
+import { provideHooks } from 'redial';
+import { getPersons } from '../ducks/person';
+
+const hooks = {
+  fetch: ({ dispatch }) => dispatch(getPersons()),
+};
 
 class App extends React.Component {
 
@@ -26,4 +32,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default provideHooks(hooks)(App);
